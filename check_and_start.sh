@@ -5,8 +5,14 @@ WIFI_CREDS="/home/pi/WifiPortal/wifi_creds.enc"
 LOG="/home/pi/WifiPortal/portal.log"
 
 check_internet() {
-    ping -c 1 -W 3 8.8.8.8 > /dev/null 2>&1
-    return $?
+    for i in $(seq 1 10); do
+        if ping -c 1 -W 3 8.8.8.8 > /dev/null 2>&1; then
+            return 0
+        fi
+        echo "$(date): Internet check attempt $i failed, retrying..." >> "$LOG"
+        sleep 3
+    done
+    return 1
 }
 
 start_hotspot() {
