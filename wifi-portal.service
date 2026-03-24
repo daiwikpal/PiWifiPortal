@@ -1,0 +1,13 @@
+[Unit]
+Description=WiFi Captive Portal
+After=network.target
+Wants=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /home/pi/WifiPortal/check_and_start.sh
+RemainAfterExit=yes
+User=root
+
+[Install]
+WantedBy=multi-user.target

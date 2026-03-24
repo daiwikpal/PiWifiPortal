@@ -1,0 +1,5 @@
+.secret.key
+wifi_creds.enc
+portal.log
+__pycache__/
+*.pyc
