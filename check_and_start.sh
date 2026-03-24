@@ -17,7 +17,9 @@ check_internet() {
 
 start_hotspot() {
     echo "$(date): No internet. Starting hotspot..." >> "$LOG"
-    # Stop wpa_supplicant so we can take control of wlan0
+    # Tell NetworkManager to release wlan0
+    nmcli device disconnect wlan0 2>/dev/null
+    nmcli device set wlan0 managed no 2>/dev/null
     systemctl stop wpa_supplicant
     sleep 1
 
